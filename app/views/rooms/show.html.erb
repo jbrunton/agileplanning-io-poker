@@ -1,3 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Room #<%= @room.id %></h1>
+
+<%= link_to 'Join', new_room_attendee_path(@room) %>
 <%= link_to 'Back', rooms_path %>
