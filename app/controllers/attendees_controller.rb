@@ -1,5 +1,6 @@
 class AttendeesController < ApplicationController
   before_action :set_attendee, only: [:show, :edit, :update, :destroy]
+  before_action :set_room, only: [:create, :new, :index]
 
   # GET /attendees
   # GET /attendees.json
@@ -15,10 +16,12 @@ class AttendeesController < ApplicationController
   # GET /attendees/new
   def new
     @attendee = Attendee.new
+    @record = [@room, @attendee]
   end
 
   # GET /attendees/1/edit
   def edit
+    @record = @attendee
   end
 
   # POST /attendees
@@ -65,6 +68,11 @@ class AttendeesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_attendee
       @attendee = Attendee.find(params[:id])
+      @room = @attendee.room
+    end
+
+    def set_room
+      @room = Room.find(params[:room_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

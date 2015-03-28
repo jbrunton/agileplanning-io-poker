@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :attendees
+  resources :attendees, except: [:index, :new, :create]
 
-  resources :rooms
+  resources :rooms do
+    resources :attendees, only: [:create, :new, :index]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
