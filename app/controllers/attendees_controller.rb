@@ -27,7 +27,7 @@ class AttendeesController < ApplicationController
   # POST /attendees
   # POST /attendees.json
   def create
-    @attendee = Attendee.new(attendee_params)
+    @attendee = @room.attendees.new(attendee_params)
 
     respond_to do |format|
       if @attendee.save

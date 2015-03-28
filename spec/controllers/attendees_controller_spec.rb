@@ -81,6 +81,11 @@ RSpec.describe AttendeesController, type: :controller do
         expect(assigns(:attendee)).to be_persisted
       end
 
+      it "adds the attendee to the room" do
+        post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
+        expect(assigns(:attendee).room).to eq(room)
+      end
+
       it "redirects to the created attendee" do
         post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
         expect(response).to redirect_to(Attendee.last)
