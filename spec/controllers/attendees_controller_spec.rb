@@ -36,7 +36,7 @@ RSpec.describe AttendeesController, type: :controller do
   # AttendeesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  let(:room) { Room.create! }
+  let(:room) { create(:room) }
 
   describe "GET #index" do
     it "assigns all attendees as @attendees" do
