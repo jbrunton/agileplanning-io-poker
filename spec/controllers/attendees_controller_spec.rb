@@ -36,6 +36,8 @@ RSpec.describe AttendeesController, type: :controller do
   # AttendeesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:room) { Room.create! }
+
   describe "GET #index" do
     it "assigns all attendees as @attendees" do
       attendee = Attendee.create! valid_attributes
@@ -54,7 +56,7 @@ RSpec.describe AttendeesController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new attendee as @attendee" do
-      get :new, {}, valid_session
+      get :new, {:room_id => room.to_param}, valid_session
       expect(assigns(:attendee)).to be_a_new(Attendee)
     end
   end

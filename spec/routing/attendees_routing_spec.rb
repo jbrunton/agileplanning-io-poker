@@ -4,11 +4,11 @@ RSpec.describe AttendeesController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/attendees").to route_to("attendees#index")
+      expect(:get => "/rooms/2/attendees").to route_to("attendees#index", :room_id => "2")
     end
 
     it "routes to #new" do
-      expect(:get => "/attendees/new").to route_to("attendees#new")
+      expect(:get => "/rooms/2/attendees/new").to route_to("attendees#new", :room_id => "2")
     end
 
     it "routes to #show" do
@@ -20,7 +20,7 @@ RSpec.describe AttendeesController, type: :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/attendees").to route_to("attendees#create")
+      expect(:post => "/rooms/2/attendees").to route_to("attendees#create", :room_id => "2")
     end
 
     it "routes to #update" do
