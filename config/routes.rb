@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :attendees, except: [:index, :new, :create]
 
-  resources :rooms do
+  resources :rooms, except: [:edit, :update] do
     resources :attendees, only: [:create, :new, :index]
   end
 
