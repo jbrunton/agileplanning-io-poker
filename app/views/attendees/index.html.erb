@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Attendees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Ready</th>
+      <th>Room</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attendees.each do |attendee| %>
+      <tr>
+        <td><%= attendee.name %></td>
+        <td><%= attendee.score %></td>
+        <td><%= attendee.ready %></td>
+        <td><%= attendee.room %></td>
+        <td><%= link_to 'Show', attendee %></td>
+        <td><%= link_to 'Edit', edit_attendee_path(attendee) %></td>
+        <td><%= link_to 'Destroy', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Attendee', new_attendee_path %>
