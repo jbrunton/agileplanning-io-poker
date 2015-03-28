@@ -59,7 +59,7 @@ class AttendeesController < ApplicationController
   def destroy
     @attendee.destroy
     respond_to do |format|
-      format.html { redirect_to attendees_url, notice: 'Attendee was successfully destroyed.' }
+      format.html { redirect_to room_attendees_url(@room), notice: 'Attendee was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

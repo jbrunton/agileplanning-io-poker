@@ -24,11 +24,11 @@ RSpec.describe AttendeesController, type: :controller do
   # Attendee. As you add validations to Attendee, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: 'Some Attendee' }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: '' }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -36,19 +36,18 @@ RSpec.describe AttendeesController, type: :controller do
   # AttendeesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  let(:room) { create(:room) }
+  let!(:room) { create(:room) }
+  let!(:attendee) { create(:attendee, room: room) }
 
   describe "GET #index" do
     it "assigns all attendees as @attendees" do
-      attendee = Attendee.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {:room_id => room.to_param}, valid_session
       expect(assigns(:attendees)).to eq([attendee])
     end
   end
 
   describe "GET #show" do
     it "assigns the requested attendee as @attendee" do
-      attendee = Attendee.create! valid_attributes
       get :show, {:id => attendee.to_param}, valid_session
       expect(assigns(:attendee)).to eq(attendee)
     end
@@ -63,7 +62,6 @@ RSpec.describe AttendeesController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested attendee as @attendee" do
-      attendee = Attendee.create! valid_attributes
       get :edit, {:id => attendee.to_param}, valid_session
       expect(assigns(:attendee)).to eq(attendee)
     end
@@ -73,30 +71,30 @@ RSpec.describe AttendeesController, type: :controller do
     context "with valid params" do
       it "creates a new Attendee" do
         expect {
-          post :create, {:attendee => valid_attributes}, valid_session
+          post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
         }.to change(Attendee, :count).by(1)
       end
 
       it "assigns a newly created attendee as @attendee" do
-        post :create, {:attendee => valid_attributes}, valid_session
+        post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
         expect(assigns(:attendee)).to be_a(Attendee)
         expect(assigns(:attendee)).to be_persisted
       end
 
       it "redirects to the created attendee" do
-        post :create, {:attendee => valid_attributes}, valid_session
+        post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
         expect(response).to redirect_to(Attendee.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved attendee as @attendee" do
-        post :create, {:attendee => invalid_attributes}, valid_session
+        post :create, {:room_id => room.to_param, :attendee => invalid_attributes}, valid_session
         expect(assigns(:attendee)).to be_a_new(Attendee)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:attendee => invalid_attributes}, valid_session
+        post :create, {:room_id => room.to_param, :attendee => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -105,24 +103,21 @@ RSpec.describe AttendeesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: 'Another Attendee' }
       }
 
       it "updates the requested attendee" do
-        attendee = Attendee.create! valid_attributes
         put :update, {:id => attendee.to_param, :attendee => new_attributes}, valid_session
         attendee.reload
-        skip("Add assertions for updated state")
+        expect(attendee.name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested attendee as @attendee" do
-        attendee = Attendee.create! valid_attributes
         put :update, {:id => attendee.to_param, :attendee => valid_attributes}, valid_session
         expect(assigns(:attendee)).to eq(attendee)
       end
 
       it "redirects to the attendee" do
-        attendee = Attendee.create! valid_attributes
         put :update, {:id => attendee.to_param, :attendee => valid_attributes}, valid_session
         expect(response).to redirect_to(attendee)
       end
@@ -130,13 +125,11 @@ RSpec.describe AttendeesController, type: :controller do
 
     context "with invalid params" do
       it "assigns the attendee as @attendee" do
-        attendee = Attendee.create! valid_attributes
         put :update, {:id => attendee.to_param, :attendee => invalid_attributes}, valid_session
         expect(assigns(:attendee)).to eq(attendee)
       end
 
       it "re-renders the 'edit' template" do
-        attendee = Attendee.create! valid_attributes
         put :update, {:id => attendee.to_param, :attendee => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -145,16 +138,14 @@ RSpec.describe AttendeesController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested attendee" do
-      attendee = Attendee.create! valid_attributes
       expect {
         delete :destroy, {:id => attendee.to_param}, valid_session
       }.to change(Attendee, :count).by(-1)
     end
 
     it "redirects to the attendees list" do
-      attendee = Attendee.create! valid_attributes
       delete :destroy, {:id => attendee.to_param}, valid_session
-      expect(response).to redirect_to(attendees_url)
+      expect(response).to redirect_to(room_attendees_url(room))
     end
   end
 
