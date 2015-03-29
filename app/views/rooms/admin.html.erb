@@ -11,6 +11,14 @@
 
     <h1>Room #<%= @room.id %></h1>
 
+    <% if @room.attendees.empty? %>
+
+      <div class="panel">
+        Waiting for attendees
+      </div>
+
+    <% else %>
+
     <table style="width: 100%;">
       <% @room.attendees.each do |attendee| %>
         <tr>
@@ -35,8 +43,10 @@
       <% end %>
     </table>
 
-    <%= button_to "Show", show_scores_room_path(@room), class: 'button' %>
-    <%= button_to "Reset", reset_room_path(@room), class: 'button' %>
+      <%= button_to "Show", show_scores_room_path(@room), class: 'button' %>
+      <%= button_to "Reset", reset_room_path(@room), class: 'alert button' %>
+
+    <% end %>
 
   </div>
 </div>
