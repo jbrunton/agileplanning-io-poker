@@ -46,6 +46,7 @@ class AttendeesController < ApplicationController
   def update
     respond_to do |format|
       if @attendee.update(attendee_params)
+        WebsocketRails["room:#{@attendee.room_id}"].trigger(:updated)
         format.html { redirect_to @attendee, notice: 'Attendee was successfully updated.' }
         format.json { render :show, status: :ok, location: @attendee }
       else

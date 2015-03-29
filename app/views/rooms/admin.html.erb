@@ -1,3 +1,11 @@
+<script type="application/javascript">
+    var dispatcher = new WebSocketRails('<%= request.host_with_port %>/websocket');
+    var channel = dispatcher.subscribe('room:' + <%= @room.id %>);
+    channel.bind('updated', function(data) {
+        location.reload();
+    });
+</script>
+
 <div class="row">
   <div class="large-12 columns">
     <p id="notice"><%= notice %></p>
