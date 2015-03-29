@@ -92,8 +92,9 @@ RSpec.describe AttendeesController, type: :controller do
       end
 
       it "notifies the channel" do
-        expect(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger).with(:updated)
+        allow(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger)
         post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
+        expect(WebsocketRails["room:#{room.to_param}"]).to have_received(:trigger).with(:updated, {attendee_id: assigns(:attendee).id})
       end
 
       it "sets the attendee_id cookie" do
@@ -138,7 +139,7 @@ RSpec.describe AttendeesController, type: :controller do
       end
 
       it "notifies the channel" do
-        expect(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger).with(:updated)
+        expect(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger).with(:updated, {attendee_id: attendee.id})
         put :update, {:id => attendee.to_param, :attendee => valid_attributes}, valid_session
       end
     end
@@ -169,7 +170,7 @@ RSpec.describe AttendeesController, type: :controller do
     end
 
     it "notifies the channel" do
-      expect(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger).with(:updated)
+      expect(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger).with(:updated, {attendee_id: attendee.id})
       delete :destroy, {:id => attendee.to_param}, valid_session
     end
   end

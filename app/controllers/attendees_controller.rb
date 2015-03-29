@@ -34,7 +34,7 @@ class AttendeesController < ApplicationController
     respond_to do |format|
       if @attendee.save
         cookies['attendee_id'] = @attendee.id
-        notify_update(@attendee.room)
+        notify_update(@attendee)
         format.html { redirect_to @room, notice: 'Attendee was successfully created.' }
         format.json { render :show, status: :created, location: @attendee }
       else
@@ -49,7 +49,7 @@ class AttendeesController < ApplicationController
   def update
     respond_to do |format|
       if @attendee.update(attendee_params)
-        notify_update(@attendee.room)
+        notify_update(@attendee)
         format.html { redirect_to @attendee, notice: 'Attendee was successfully updated.' }
         format.json { render :show, status: :ok, location: @attendee }
       else
@@ -63,7 +63,7 @@ class AttendeesController < ApplicationController
   # DELETE /attendees/1.json
   def destroy
     @attendee.destroy
-    notify_update(@attendee.room)
+    notify_update(@attendee)
     respond_to do |format|
       format.html { redirect_to room_attendees_url(@room), notice: 'Attendee was successfully destroyed.' }
       format.json { head :no_content }
