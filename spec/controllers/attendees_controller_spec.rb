@@ -167,6 +167,11 @@ RSpec.describe AttendeesController, type: :controller do
       delete :destroy, {:id => attendee.to_param}, valid_session
       expect(response).to redirect_to(room_attendees_url(room))
     end
+
+    it "notifies the channel" do
+      expect(WebsocketRails["room:#{room.to_param}"]).to receive(:trigger).with(:updated)
+      delete :destroy, {:id => attendee.to_param}, valid_session
+    end
   end
 
 end

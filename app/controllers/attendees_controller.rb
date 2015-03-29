@@ -63,6 +63,7 @@ class AttendeesController < ApplicationController
   # DELETE /attendees/1.json
   def destroy
     @attendee.destroy
+    notify_update(@attendee.room)
     respond_to do |format|
       format.html { redirect_to room_attendees_url(@room), notice: 'Attendee was successfully destroyed.' }
       format.json { head :no_content }

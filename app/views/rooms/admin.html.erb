@@ -7,18 +7,25 @@
 </script>
 
 <div class="row">
-  <div class="large-12 columns">
+  <div class="large-6 columns">
     <p id="notice"><%= notice %></p>
 
     <h1>Room #<%= @room.id %></h1>
 
-    <table>
+    <table style="width: 100%;">
       <% @room.attendees.each do |attendee| %>
         <tr>
-          <td>
-            <%= attendee.name %>
+          <td style="widht: 70%;">
+            <a href="#" data-dropdown="dd-attendee-<%= attendee.id %>" data-options="is_hover:true;">
+              <%= attendee.name %>
+            </a>
+            <ul id="dd-attendee-<%= attendee.id %>" class="f-dropdown" data-dropdown-content>
+              <li>
+                <%= link_to 'Remove', attendee_path(attendee, format: :json), remote: true, method: :delete %>
+              </li>
+            </ul>
           </td>
-          <td>
+          <td style="widht: 30%;">
             <% if @room.show_scores %>
               <%= attendee.score %>
             <% elsif !attendee.score.nil? %>
