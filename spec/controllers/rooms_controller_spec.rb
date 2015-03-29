@@ -98,7 +98,7 @@ RSpec.describe RoomsController, type: :controller do
 
       it "redirects to the created room" do
         post :create, {:room => valid_attributes}, valid_session
-        expect(response).to redirect_to(Room.last)
+        expect(response).to redirect_to(admin_room_path(Room.last))
       end
     end
   end

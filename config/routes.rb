@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   resources :attendees, except: [:index, :new, :create] do
     member do
       post 'set_score'
