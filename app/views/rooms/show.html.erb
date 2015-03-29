@@ -1,6 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="large-12 columns">
+    <p id="notice"><%= notice %></p>
 
-<h1>Room #<%= @room.id %></h1>
+    <h1>Room #<%= @room.id %></h1>
+    <% unless @attendee.nil? %>
+      <h3>Attending as <%= @attendee.name %></h3>
+    <% end %>
 
-<%= link_to 'Join', new_room_attendee_path(@room) %>
-<%= link_to 'Back', rooms_path %>
+    <% [1, 2, 3, 5, 8, 13].each do |score| %>
+        <%= form_tag(attendee_path(@attendee, format: :json), remote: true, method: :put) do %>
+            <%= hidden_field_tag 'attendee[score]', score %>
+            <%= submit_tag score, class: 'button' %>
+        <% end %>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="large-12 columns">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Room #<%= @room.id %></h1>
+
+    <table>
+      <% @room.attendees.each do |attendee| %>
+        <tr>
+          <td>
+            <%= attendee.name %>
+          </td>
+          <td>
+            <%= attendee.score %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <%= button_to "Show", show_scores_room_path(@room) %>
+
+  </div>
+</div>

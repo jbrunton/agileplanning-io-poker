@@ -86,9 +86,14 @@ RSpec.describe AttendeesController, type: :controller do
         expect(assigns(:attendee).room).to eq(room)
       end
 
-      it "redirects to the created attendee" do
+      it "redirects to the appropriate room" do
         post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
-        expect(response).to redirect_to(Attendee.last)
+        expect(response).to redirect_to(room)
+      end
+
+      it "sets the attendee_id cookie" do
+        post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
+        expect(response.cookies['attendee_id']).to eq(assigns(:attendee).to_param)
       end
     end
 
@@ -105,7 +110,7 @@ RSpec.describe AttendeesController, type: :controller do
     end
   end
 
-  describe "PUT #update" do
+  describe "POST #update" do
     context "with valid params" do
       let(:new_attributes) {
         { name: 'Another Attendee' }

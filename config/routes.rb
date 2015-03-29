@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
-  resources :attendees, except: [:index, :new, :create]
+  resources :attendees, except: [:index, :new, :create] do
+    member do
+      post 'set_score'
+    end
+  end
 
   resources :rooms, except: [:edit, :update] do
-    resources :attendees, only: [:create, :new, :index]
+    resources :attendees, only: [:create, :index]
+
+    get 'join', to: 'attendees#new'
+
+    member do
+      get 'admin'
+      post 'show_scores'
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

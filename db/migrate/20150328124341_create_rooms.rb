@@ -1,6 +1,7 @@
 class CreateRooms < ActiveRecord::Migration
   def change
     create_table :rooms do |t|
+      t.boolean :show_scores
 
       t.timestamps null: false
     end

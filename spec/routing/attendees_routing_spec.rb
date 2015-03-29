@@ -8,7 +8,7 @@ RSpec.describe AttendeesController, type: :routing do
     end
 
     it "routes to #new" do
-      expect(:get => "/rooms/2/attendees/new").to route_to("attendees#new", :room_id => "2")
+      expect(:get => "/rooms/2/join").to route_to("attendees#new", :room_id => "2")
     end
 
     it "routes to #show" do

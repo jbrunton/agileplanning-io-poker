@@ -24,7 +24,7 @@ RSpec.describe RoomsController, type: :controller do
   # Room. As you add validations to Room, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {}
+    { show_scores: false }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -44,6 +44,13 @@ RSpec.describe RoomsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested room as @room" do
       get :show, {:id => room.to_param}, valid_session
+      expect(assigns(:room)).to eq(room)
+    end
+  end
+
+  describe "GET #admin" do
+    it "assigns the requested room as @room" do
+      get :admin, {:id => room.to_param}, valid_session
       expect(assigns(:room)).to eq(room)
     end
   end
@@ -73,6 +80,19 @@ RSpec.describe RoomsController, type: :controller do
         post :create, {:room => valid_attributes}, valid_session
         expect(response).to redirect_to(Room.last)
       end
+    end
+  end
+
+  describe "PUT #show_scores" do
+    it "updates the requested room" do
+      put :show_scores, {:id => room.to_param}, valid_session
+      room.reload
+      expect(room.show_scores).to eq(true)
+    end
+
+    it "redirects to the admin action" do
+      put :show_scores, {:id => room.to_param, :room => valid_attributes}, valid_session
+      expect(response).to redirect_to(admin_room_path(room))
     end
   end
 

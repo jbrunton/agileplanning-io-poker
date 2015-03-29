@@ -15,8 +15,16 @@ RSpec.describe RoomsController, type: :routing do
       expect(:get => "/rooms/1").to route_to("rooms#show", :id => "1")
     end
 
+    it "routes to #admin" do
+      expect(:get => "/rooms/1/admin").to route_to("rooms#admin", :id => "1")
+    end
+
     it "routes to #create" do
       expect(:post => "/rooms").to route_to("rooms#create")
+    end
+
+    it "routes to #show_scores" do
+      expect(:post => "/rooms/1/show_scores").to route_to("rooms#show_scores", :id => "1")
     end
 
     it "routes to #destroy" do

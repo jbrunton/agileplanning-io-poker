@@ -31,7 +31,8 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
-        format.html { redirect_to @attendee, notice: 'Attendee was successfully created.' }
+        cookies['attendee_id'] = @attendee.id
+        format.html { redirect_to @room, notice: 'Attendee was successfully created.' }
         format.json { render :show, status: :created, location: @attendee }
       else
         format.html { render :new }
