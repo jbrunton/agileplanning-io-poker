@@ -46,6 +46,26 @@ RSpec.describe RoomsController, type: :controller do
       get :show, {:id => room.to_param}, valid_session
       expect(assigns(:room)).to eq(room)
     end
+
+    context "when the attendee cookie is for the room" do
+      let(:attendee) { create(:attendee, room: room) }
+
+      it "assigns the attendee" do
+        request.cookies['attendee_id'] = attendee.to_param
+        get :show, {:id => room.to_param}, valid_session
+        expect(assigns(:attendee)).to eq(attendee)
+      end
+    end
+
+    context "when the attendee cookie is for a different room" do
+      let(:attendee) { create(:attendee) }
+
+      it "assigns the attendee" do
+        request.cookies['attendee_id'] = attendee.to_param
+        get :show, {:id => room.to_param}, valid_session
+        expect(assigns(:attendee)).to be_nil
+      end
+    end
   end
 
   describe "GET #admin" do

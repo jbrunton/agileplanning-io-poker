@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :admin, :show_scores, :destroy]
+  before_action :set_attendee, only: [:show]
 
   # GET /rooms
   # GET /rooms.json
@@ -10,7 +11,6 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @attendee = Attendee.find(cookies['attendee_id']) unless cookies['attendee_id'].nil?
   end
 
   # GET /rooms/1/admin
@@ -63,6 +63,11 @@ class RoomsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_room
       @room = Room.find(params[:id])
+    end
+
+    def set_attendee
+      attendee = Attendee.find_by_id(cookies['attendee_id'])
+      @attendee = attendee if attendee.try(:room) == @room
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,13 +11,17 @@
             <%= attendee.name %>
           </td>
           <td>
-            <%= attendee.score %>
+            <% if @room.show_scores %>
+              <%= attendee.score %>
+            <% elsif !attendee.score.nil? %>
+              <span class="success label">ready</span>
+            <% end %>
           </td>
         </tr>
       <% end %>
     </table>
 
-    <%= button_to "Show", show_scores_room_path(@room) %>
+    <%= button_to "Show", show_scores_room_path(@room), class: 'button' %>
 
   </div>
 </div>
