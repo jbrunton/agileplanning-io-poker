@@ -18,6 +18,7 @@
 // Why is this hack necessary?
 //= require foundation/foundation
 //= require foundation
+//= require ZeroClipboard
 
 //= require_tree .
 

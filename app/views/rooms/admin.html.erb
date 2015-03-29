@@ -3,14 +3,20 @@
     channel.bind('updated', function(data) {
         location.reload();
     });
+
+    $(function() {
+        var client = new ZeroClipboard( document.getElementById("copy-join-link") );
+    });
 </script>
 
 <div class="row">
-  <div class="large-6 columns">
+  <div class="large-12 columns">
     <p id="notice"><%= notice %></p>
 
     <h1>Room #<%= @room.id %></h1>
+  </div>
 
+  <div class="large-6 columns">
     <% if @room.attendees.empty? %>
 
       <div class="panel">
@@ -48,5 +54,11 @@
 
     <% end %>
 
+  </div>
+
+  <div class="large-6 columns">
+    <div class="panel">
+      <a id="copy-join-link" data-clipboard-text="<%= room_join_url(@room) %>" href="#">Copy Link to Clipboard</a>
+    </div>
   </div>
 </div>
