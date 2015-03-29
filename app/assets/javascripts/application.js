@@ -14,7 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require websocket_rails/main
+
+// Why is this hack necessary?
+//= require foundation/foundation
 //= require foundation
+
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
