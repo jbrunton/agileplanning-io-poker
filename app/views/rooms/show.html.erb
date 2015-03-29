@@ -35,7 +35,7 @@
       <ul class="small-block-grid-3 medium-block-grid-6 large-block-grid-12">
         <% ["0.5", "1", "2", "3", "5", "8", "13", "20", "40", "100", "break", "?"].each do |score| %>
           <li>
-            <a style="width: 100%; padding-left: 0; padding-right: 0;" class="small button <%= score == @attendee.score ? 'success' : '' %>" href="#" onclick="setScore('<%= score %>');"><%= score %></a>
+            <a style="width: 100%; padding-left: 0; padding-right: 0;" class="button <%= score == @attendee.score ? 'success' : '' %>" href="#" onclick="setScore('<%= score %>');"><%= score %></a>
           </li>
         <% end %>
       </ul>
