@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :admin, :show_scores, :destroy]
+  before_action :set_room, only: [:show, :admin, :show_scores, :reset, :destroy]
   before_action :set_attendee, only: [:show]
 
   # GET /rooms
@@ -44,6 +44,15 @@ class RoomsController < ApplicationController
   def show_scores
     respond_to do |format|
       @room.update(show_scores: true)
+      format.html { redirect_to admin_room_path(@room), notice: 'Room was successfully updated.' }
+      format.json { render :show, status: :ok, location: @room }
+    end
+  end
+
+  def reset
+    respond_to do |format|
+      @room.update(show_scores: false)
+      @room.attendees.each { |attendee| attendee.update(score: nil) }
       format.html { redirect_to admin_room_path(@room), notice: 'Room was successfully updated.' }
       format.json { render :show, status: :ok, location: @room }
     end

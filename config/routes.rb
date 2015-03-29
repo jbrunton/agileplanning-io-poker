@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     member do
       get 'admin'
       post 'show_scores'
+      post 'reset'
     end
   end
 

@@ -116,6 +116,22 @@ RSpec.describe RoomsController, type: :controller do
     end
   end
 
+  describe "PUT #reset" do
+    let!(:attendee) { create(:attendee, room: room, score: "2") }
+
+    it "resets the scores" do
+      put :reset, {:id => room.to_param}, valid_session
+      attendee.reload
+      expect(attendee.score).to be_nil
+    end
+
+    it "resets the room" do
+      put :reset, {:id => room.to_param}, valid_session
+      room.reload
+      expect(room.show_scores).to eq(false)
+    end
+  end
+
   describe "DELETE #destroy" do
     it "destroys the requested room" do
       expect {
