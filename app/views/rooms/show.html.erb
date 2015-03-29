@@ -6,15 +6,17 @@
         }
     });
 
-    function setScore(score) {
-        $.ajax({
-            url: "<%= attendee_path(@attendee, format: :json) %>",
-            type: 'PUT',
-            data: {
-                'attendee[score]': score
-            }
-        });
-    }
+    <% unless @attendee.nil? %>
+        function setScore(score) {
+            $.ajax({
+                url: "<%= attendee_path(@attendee, format: :json) %>",
+                type: 'PUT',
+                data: {
+                    'attendee[score]': score
+                }
+            });
+        }
+    <% end %>
 </script>
 
 <div class="row">
@@ -23,8 +25,13 @@
 
     <h1>Room #<%= @room.id %></h1>
 
-    <% unless @attendee.nil? %>
-      <h3>Attending as <%= @attendee.name %></h3>
+    <% if @attendee.nil? %>
+      <div class="panel">
+        Join <%= list_names %> <br />
+        <%= link_to 'Join', room_join_path(@room), class: 'button' %>
+      </div>
+    <% else %>
+      <h3>Attending as <strong><%= @attendee.name %></strong></h3>
     <% end %>
   </div>
 </div>

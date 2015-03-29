@@ -11,5 +11,41 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe RoomsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#list_names" do
+    context "if the room is empty" do
+      before(:each) {
+        assign(:room, create(:room))
+      }
+
+      it "returns 'This room is empty'" do
+        expect(helper.list_names).to eq('This room is empty')
+      end
+    end
+
+    context "if the room has one attendee" do
+      before(:each) {
+        assign(:room, create(:room, attendees: [
+          create(:attendee, name: 'John')
+        ]))
+      }
+
+      it "returns the name" do
+        expect(helper.list_names).to eq('John')
+      end
+    end
+
+    context "if the room has multiple attendees" do
+      before(:each) {
+        assign(:room, create(:room, attendees: [
+          create(:attendee, name: 'John'),
+          create(:attendee, name: 'Jeff'),
+          create(:attendee, name: 'James')
+        ]))
+      }
+
+      it "returns a comma separated list of names" do
+        expect(helper.list_names).to eq('Jeff, James and John')
+      end
+    end
+  end
 end
