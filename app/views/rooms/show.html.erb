@@ -21,13 +21,16 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <p id="notice"><%= notice %></p>
-
     <h1>Room #<%= @room.id %></h1>
 
     <% if @attendee.nil? %>
       <div class="panel">
-        Join <%= list_names %> <br />
+        <% if @room.attendees.empty? %>
+          This room is empty
+        <% else %>
+          Join <%= list_names %>
+        <% end %>
+        <br />
         <%= link_to 'Join', room_join_path(@room), class: 'button' %>
       </div>
     <% else %>
