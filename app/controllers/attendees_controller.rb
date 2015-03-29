@@ -1,4 +1,6 @@
 class AttendeesController < ApplicationController
+  include RoomsHelper
+
   before_action :set_attendee, only: [:show, :edit, :update, :destroy]
   before_action :set_room, only: [:create, :new, :index]
 
@@ -32,6 +34,7 @@ class AttendeesController < ApplicationController
     respond_to do |format|
       if @attendee.save
         cookies['attendee_id'] = @attendee.id
+        notify_update(@attendee.room)
         format.html { redirect_to @room, notice: 'Attendee was successfully created.' }
         format.json { render :show, status: :created, location: @attendee }
       else
@@ -46,7 +49,7 @@ class AttendeesController < ApplicationController
   def update
     respond_to do |format|
       if @attendee.update(attendee_params)
-        WebsocketRails["room:#{@attendee.room_id}"].trigger(:updated)
+        notify_update(@attendee.room)
         format.html { redirect_to @attendee, notice: 'Attendee was successfully updated.' }
         format.json { render :show, status: :ok, location: @attendee }
       else
