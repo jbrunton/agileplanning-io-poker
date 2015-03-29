@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  include RoomsHelper
+
   before_action :set_room, only: [:show, :admin, :show_scores, :reset, :destroy]
   before_action :set_attendee, only: [:show]
 
@@ -53,6 +55,7 @@ class RoomsController < ApplicationController
     respond_to do |format|
       @room.update(show_scores: false)
       @room.attendees.each { |attendee| attendee.update(score: nil) }
+      notify_room_update(@room)
       format.html { redirect_to admin_room_path(@room), notice: 'Room was successfully updated.' }
       format.json { render :show, status: :ok, location: @room }
     end
