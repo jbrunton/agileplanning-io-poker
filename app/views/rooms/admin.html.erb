@@ -38,7 +38,7 @@
               </li>
             </ul>
           </td>
-          <td style="widht: 30%;">
+          <td style="width: 30%;">
             <% if @room.show_scores %>
               <%= attendee.score %>
             <% elsif !attendee.score.nil? %>
@@ -58,7 +58,15 @@
 
   <div class="large-6 columns">
     <div class="panel">
-      <a id="copy-join-link" data-clipboard-text="<%= room_join_url(@room) %>" href="#">Copy Link to Clipboard</a>
+      <h3>Invite attendees</h3>
+      <div class="row collapse">
+        <div class="large-10 columns">
+          <input type="text" value="<%= room_url(@room) %>" />
+        </div>
+        <div class="large-2 columns">
+          <a id="copy-join-link" class="button postfix" data-clipboard-text="<%= room_url(@room) %>" href="#">Copy</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
