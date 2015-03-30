@@ -2,7 +2,13 @@
   <div class="large-12 columns">
     <h1>Agile Poker</h1>
     <div class="panel callout radius">
-      <%= link_to 'Create a Room', rooms_path, class: 'button', method: 'POST' %>
+      <%= link_to 'Create', rooms_path, class: 'round button', method: 'POST' %>
+      a room.
+      <% unless @attendee.nil? %>
+        <br />
+        Or <%= link_to 'rejoin', @attendee.room, class: 'round button' %>
+        room #<%= @attendee.room.id %> as <%= @attendee.name %>.
+      <% end %>
     </div>
   </div>
 </div>
