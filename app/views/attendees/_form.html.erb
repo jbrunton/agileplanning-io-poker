@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit 'Join', class: 'button' %>
+  <div class="row collapse">
+    <div class="large-10 columns">
+      <%= f.text_field :name, placeholder: 'Name' %>
+    </div>
+    <div class="large-2 columns">
+      <%= f.submit 'Join', class: 'button postfix' %>
+    </div>
   </div>
 <% end %>
