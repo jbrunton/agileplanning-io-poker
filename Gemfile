@@ -45,6 +45,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'foundation-rails'
+gem 'foundation-icons-sass-rails'
 gem 'websocket-rails'
 
 group :development, :test do
