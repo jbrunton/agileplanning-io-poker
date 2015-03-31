@@ -2,12 +2,12 @@
   <div class="large-12 columns">
     <h3>Agile Poker</h3>
     <div class="panel callout radius text-center">
+      <p>Welcome back, <%= @attendee.name %>!</p>
       <%= link_to 'Create', rooms_path, class: 'round button', method: 'POST' %>
-      a room.
+      a room
       <% unless @attendee.nil? %>
         <br />
-        Or <%= link_to 'rejoin', @attendee.room, class: 'round button' %>
-        room #<%= @attendee.room.id %> as <%= @attendee.name %>.
+        Or rejoin <%= link_to "Room ##{@attendee.room.id}", @attendee.room, class: 'round button' %>
       <% end %>
     </div>
   </div>
