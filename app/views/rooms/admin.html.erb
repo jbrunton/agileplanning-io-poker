@@ -21,6 +21,13 @@
     }
 
     renderScores();
+
+    function deleteAttendee(id) {
+        $.ajax({
+            url: '/attendees/' + id + '.json',
+            type: 'DELETE'
+        });
+    }
 </script>
 
 <div class="row">
