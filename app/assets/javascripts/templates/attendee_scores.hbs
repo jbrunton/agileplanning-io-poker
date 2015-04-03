@@ -1,0 +1,22 @@
+<table class="scores">
+  {{#each attendees}}
+    <tr>
+      <td style="width: 20%;">
+        <a href="#" data-dropdown="dd-attendee-{{id}}" data-options="is_hover:true;">
+          <i class="fi-widget"></i>
+        </a>
+        <ul id="dd-attendee-{{id}}" class="f-dropdown" data-dropdown-content>
+          <li>
+            <a data-remote="true" rel="nofollow" data-method="delete" href="/attendees/{{id}}.json">Remove</a>
+          </li>
+        </ul>
+      </td>
+      <td style="width: 50%;">
+        {{name}}
+      </td>
+      <td style="width: 30%;">
+        {{score}}
+      </td>
+    </tr>
+  {{/each}}
+</table>

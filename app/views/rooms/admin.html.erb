@@ -1,7 +1,13 @@
 <script type="application/javascript">
     var channel = dispatcher.subscribe('room:' + <%= @room.id %>);
     channel.bind('updated', function(data) {
-        location.reload();
+        $.get('<%= room_attendees_path(@room, format: :json) %>', function(attendees) {
+            var html = HandlebarsTemplates['attendee_scores']({
+                room: {},
+                attendees: attendees
+            });
+            $('#scores').html(html);
+        });
     });
 
     $(function() {
@@ -23,6 +29,7 @@
 
     <% else %>
 
+    <div id="scores">
     <table class="scores">
       <% @room.attendees.each do |attendee| %>
         <tr>
@@ -49,6 +56,7 @@
         </tr>
       <% end %>
     </table>
+    </div>
 
     <ul class="button-group">
       <li><%= button_to "Show", show_scores_room_path(@room), class: 'button' %></li>

@@ -7,7 +7,7 @@ class AttendeesController < ApplicationController
   # GET /attendees
   # GET /attendees.json
   def index
-    @attendees = Attendee.all
+    @attendees = @room.attendees
   end
 
   # GET /attendees/1

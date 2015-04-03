@@ -19,7 +19,8 @@
 //= require foundation/foundation
 //= require foundation
 //= require ZeroClipboard
-
+//= require handlebars.runtime
+//= require_tree ./templates
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
