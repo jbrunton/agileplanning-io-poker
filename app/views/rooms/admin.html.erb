@@ -1,12 +1,33 @@
 <script type="application/javascript">
     var channel = dispatcher.subscribe('room:' + <%= @room.id %>);
     channel.bind('updated', function(data) {
-        location.reload();
+        renderScores();
     });
 
     $(function() {
         var client = new ZeroClipboard( document.getElementById("copy-join-link") );
     });
+
+    function renderScores() {
+        var getRoom = $.get('<%= room_path(@room, format: :json) %>');
+        var getAttendees = $.get('<%= room_attendees_path(@room, format: :json) %>');
+        $.when(getRoom, getAttendees).done(function(room, attendees) {
+            var html = HandlebarsTemplates['attendee_scores']({
+                room: room[0],
+                attendees: attendees[0]
+            });
+            $('#scores').html(html).foundation();
+        });
+    }
+
+    renderScores();
+
+    function deleteAttendee(id) {
+        $.ajax({
+            url: '/attendees/' + id + '.json',
+            type: 'DELETE'
+        });
+    }
 </script>
 
 <div class="row">
@@ -23,36 +44,12 @@
 
     <% else %>
 
-    <table class="scores">
-      <% @room.attendees.each do |attendee| %>
-        <tr>
-          <td style="width: 20%;">
-            <a href="#" data-dropdown="dd-attendee-<%= attendee.id %>" data-options="is_hover:true;">
-              <i class="fi-widget"></i>
-            </a>
-            <ul id="dd-attendee-<%= attendee.id %>" class="f-dropdown" data-dropdown-content>
-              <li>
-                <%= link_to 'Remove', attendee_path(attendee, format: :json), remote: true, method: :delete %>
-              </li>
-            </ul>
-          </td>
-          <td style="width: 50%;">
-            <%= attendee.name %>
-          </td>
-          <td style="width: 30%;">
-            <% if @room.show_scores %>
-              <%= attendee.score %>
-            <% elsif !attendee.score.nil? %>
-              <span class="success label">ready</span>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+    <div id="scores">
+    </div>
 
     <ul class="button-group">
-      <li><%= button_to "Show", show_scores_room_path(@room), class: 'button' %></li>
-      <li><%= button_to "Reset", reset_room_path(@room), class: 'alert button' %></li>
+      <li><%= button_to "Show", show_scores_room_path(@room, format: :json), class: 'button', remote: true %></li>
+      <li><%= button_to "Reset", reset_room_path(@room, format: :json), class: 'alert button', remote: true %></li>
     </ul>
 
     <% end %>

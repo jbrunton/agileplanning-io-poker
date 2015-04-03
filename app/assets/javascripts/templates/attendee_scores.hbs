@@ -1,0 +1,30 @@
+<table class="scores">
+  {{#each attendees}}
+    <tr>
+      <td style="width: 20%;">
+        <a href="#" data-dropdown="dd-attendee-{{id}}" data-options="is_hover:true;">
+          <i class="fi-widget"></i>
+        </a>
+        <ul id="dd-attendee-{{id}}" class="f-dropdown" data-dropdown-content>
+          <li>
+            <a href="#" onclick="deleteAttendee({{id}});">Remove</a>
+          </li>
+        </ul>
+      </td>
+      <td style="width: 50%;">
+        {{name}}
+      </td>
+      <td style="width: 30%;">
+        {{#if ../room.show_scores}}
+          {{score}}
+        {{else}}
+          {{#if score}}
+            <span class="success label">ready</span>
+          {{else}}
+            <span class="label">waiting</span>
+          {{/if}}
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+</table>

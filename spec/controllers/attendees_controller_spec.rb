@@ -40,7 +40,9 @@ RSpec.describe AttendeesController, type: :controller do
   let!(:attendee) { create(:attendee, room: room) }
 
   describe "GET #index" do
-    it "assigns all attendees as @attendees" do
+    let!(:other_attendee) { create(:attendee) }
+
+    it "assigns all attendees as @attendees in the room" do
       get :index, {:room_id => room.to_param}, valid_session
       expect(assigns(:attendees)).to eq([attendee])
     end

@@ -1,7 +1,7 @@
 <script type="application/javascript">
     var channel = dispatcher.subscribe('room:' + <%= @room.id %>);
     channel.bind('updated', function(data) {
-        if (!data.attendee_id || data.attendee_id == <%= @attendee.try(:id) %>) {
+        if (!data.attendee_id || data.attendee_id == <%= @attendee.try(:id) || 'null' %>) {
             location.reload();
         }
     });

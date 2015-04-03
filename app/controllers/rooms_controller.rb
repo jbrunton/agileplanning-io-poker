@@ -46,6 +46,7 @@ class RoomsController < ApplicationController
   def show_scores
     respond_to do |format|
       @room.update(show_scores: true)
+      notify_room_update(@room)
       format.html { redirect_to admin_room_path(@room), notice: 'Room was successfully updated.' }
       format.json { render :show, status: :ok, location: @room }
     end
