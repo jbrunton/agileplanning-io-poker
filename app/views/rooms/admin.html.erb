@@ -1,6 +1,14 @@
 <script type="application/javascript">
     var channel = dispatcher.subscribe('room:' + <%= @room.id %>);
     channel.bind('updated', function(data) {
+        renderScores();
+    });
+
+    $(function() {
+        var client = new ZeroClipboard( document.getElementById("copy-join-link") );
+    });
+
+    function renderScores() {
         var getRoom = $.get('<%= room_path(@room, format: :json) %>');
         var getAttendees = $.get('<%= room_attendees_path(@room, format: :json) %>');
         $.when(getRoom, getAttendees).done(function(room, attendees) {
@@ -10,11 +18,9 @@
             });
             $('#scores').html(html);
         });
-    });
+    }
 
-    $(function() {
-        var client = new ZeroClipboard( document.getElementById("copy-join-link") );
-    });
+    renderScores();
 </script>
 
 <div class="row">
@@ -32,32 +38,6 @@
     <% else %>
 
     <div id="scores">
-    <table class="scores">
-      <% @room.attendees.each do |attendee| %>
-        <tr>
-          <td style="width: 20%;">
-            <a href="#" data-dropdown="dd-attendee-<%= attendee.id %>" data-options="is_hover:true;">
-              <i class="fi-widget"></i>
-            </a>
-            <ul id="dd-attendee-<%= attendee.id %>" class="f-dropdown" data-dropdown-content>
-              <li>
-                <%= link_to 'Remove', attendee_path(attendee, format: :json), remote: true, method: :delete %>
-              </li>
-            </ul>
-          </td>
-          <td style="width: 50%;">
-            <%= attendee.name %>
-          </td>
-          <td style="width: 30%;">
-            <% if @room.show_scores %>
-              <%= attendee.score %>
-            <% elsif !attendee.score.nil? %>
-              <span class="success label">ready</span>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
     </div>
 
     <ul class="button-group">
