@@ -15,7 +15,13 @@
         {{name}}
       </td>
       <td style="width: 30%;">
-        {{score}}
+        {{#if ../room.show_scores}}
+          {{score}}
+        {{else}}
+          {{#if score}}
+            <span class="success label">ready</span>
+          {{/if}}
+        {{/if}}
       </td>
     </tr>
   {{/each}}

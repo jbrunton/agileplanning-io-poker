@@ -1,10 +1,12 @@
 <script type="application/javascript">
     var channel = dispatcher.subscribe('room:' + <%= @room.id %>);
     channel.bind('updated', function(data) {
-        $.get('<%= room_attendees_path(@room, format: :json) %>', function(attendees) {
+        var getRoom = $.get('<%= room_path(@room, format: :json) %>');
+        var getAttendees = $.get('<%= room_attendees_path(@room, format: :json) %>');
+        $.when(getRoom, getAttendees).done(function(room, attendees) {
             var html = HandlebarsTemplates['attendee_scores']({
-                room: {},
-                attendees: attendees
+                room: room[0],
+                attendees: attendees[0]
             });
             $('#scores').html(html);
         });
