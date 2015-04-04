@@ -1,9 +1,6 @@
-# Responsive Poker
+# Responsive Poker [![Build Status](https://travis-ci.org/jbrunton/responsive-poker.png)](https://travis-ci.org/jbrunton/responsive-poker) [![Code Climate](https://codeclimate.com/github/jbrunton/responsive-poker/badges/gpa.svg)](https://codeclimate.com/github/jbrunton/responsive-poker) [![Dependency Status](https://gemnasium.com/jbrunton/responsive-poker.svg)](https://gemnasium.com/jbrunton/responsive-poker)
 
-[![Build Status](https://travis-ci.org/jbrunton/responsive-poker.png)](https://travis-ci.org/jbrunton/responsive-poker)
-[![Code Climate](https://codeclimate.com/github/jbrunton/responsive-poker/badges/gpa.svg)](https://codeclimate.com/github/jbrunton/responsive-poker)
-[![Dependency Status](https://gemnasium.com/jbrunton/responsive-poker.svg)](https://gemnasium.com/jbrunton/responsive-poker)
-[![Uptime](https://www.statuscake.com/App/button/index.php?Track=ti3MFK9J6X&Days=7&Design=5)](http://status.jbrunton.com)
+[![Uptime](https://www.statuscake.com/App/button/index.php?Track=ti3MFK9J6X&Days=7&Design=1)](http://status.jbrunton.com)
 
 A responsive Agile Poker app.
 
