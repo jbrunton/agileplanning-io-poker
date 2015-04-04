@@ -7,7 +7,7 @@
 
 A responsive Agile Poker app.
 
-### Why do we need another Agile Poker app?
+### Who needs another Agile Poker app?
 
 I've tried a few, but most are either heavyweight, poorly designed for mobile, or have poor uptime records.
 
