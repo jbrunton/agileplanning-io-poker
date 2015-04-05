@@ -18,6 +18,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1/admin
   # GET /rooms/1/admin.json
   def admin
+    cookies.permanent['room_id'] = @room.id
   end
 
   # GET /rooms/new

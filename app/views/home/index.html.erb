@@ -11,6 +11,10 @@
         <br />
         Or rejoin <%= link_to "Room ##{@attendee.room.id}", @attendee.room, class: 'round button' %>
       <% end %>
+      <% unless @room.nil? %>
+          <br />
+          Or readminister <%= link_to "Room ##{@room.id}", admin_room_path(@room), class: 'round button' %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -73,6 +73,11 @@ RSpec.describe RoomsController, type: :controller do
       get :admin, {:id => room.to_param}, valid_session
       expect(assigns(:room)).to eq(room)
     end
+
+    it "drops a room_id cookie" do
+      get :admin, {:id => room.to_param}, valid_session
+      expect(response.cookies['room_id']).to eq(room.to_param)
+    end
   end
 
   describe "GET #new" do

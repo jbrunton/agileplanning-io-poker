@@ -18,4 +18,23 @@ RSpec.describe "home/index", type: :view do
       expect(rendered).not_to match /Welcome/
     end
   end
+
+  context "if the room is set" do
+    before(:each) do
+      assign(:room, create(:room))
+    end
+
+    it "links to the room" do
+      render
+      expect(rendered).to match /readminister/
+    end
+  end
+
+  context "if the room is not set" do
+    it "does not link to it" do
+      render
+      expect(rendered).not_to match /readminister/
+    end
+  end
+
 end
