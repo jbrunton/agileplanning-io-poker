@@ -29,7 +29,7 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
-    @room = Room.new
+    @room = Room.new(room_params)
 
     respond_to do |format|
       if @room.save
@@ -86,6 +86,6 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.permit(:room).permit(:show_scores)
+      params.require(:room).permit(:name, :show_scores)
     end
 end

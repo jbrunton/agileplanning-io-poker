@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150328124824) do
   add_index "attendees", ["room_id"], name: "index_attendees_on_room_id"
 
   create_table "rooms", force: :cascade do |t|
+    t.string   "name"
     t.boolean  "show_scores"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

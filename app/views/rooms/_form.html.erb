@@ -11,7 +11,12 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row collapse">
+    <div class="large-10 columns">
+      <%= f.text_field :name, placeholder: 'Name (optional)' %>
+    </div>
+    <div class="large-2 columns">
+      <%= f.submit 'Create', class: 'button postfix' %>
+    </div>
   </div>
 <% end %>
