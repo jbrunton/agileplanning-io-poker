@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
+  include HistoryHelper
+
   def index
-    @attendee = Attendee.find_by_id(cookies[:attendee_id])
-    @room = Room.find_by_id(cookies[:room_id])
+    @attendee_history = attendee_history
+    @admin_history = admin_history
   end
 end

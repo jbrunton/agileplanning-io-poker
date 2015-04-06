@@ -1,5 +1,6 @@
 class AttendeesController < ApplicationController
   include WebsocketHelper
+  include HistoryHelper
 
   before_action :set_attendee, only: [:show, :edit, :update, :destroy]
   before_action :set_room, only: [:create, :new, :index]
@@ -33,7 +34,7 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
-        cookies.permanent['attendee_id'] = @attendee.id
+        append_attendee_history(@attendee)
         notify_attendee_update(@attendee)
         format.html { redirect_to @room, notice: 'Attendee was successfully created.' }
         format.json { render :show, status: :created, location: @attendee }

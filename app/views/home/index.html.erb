@@ -1,20 +1,38 @@
 <div class="row">
   <div class="large-6 columns">
-    <br/>
-    <div class="panel callout radius text-center">
-      <% unless @attendee.nil? %>
-        <p>Welcome back, <%= @attendee.name %>!</p>
-      <% end %>
-      <%= link_to 'Create', new_room_path, class: 'round button' %>
-      a room
-      <% unless @attendee.nil? %>
-        <br />
-        Or rejoin <%= link_to @attendee.room.display_name, @attendee.room, class: 'round button' %>
-      <% end %>
-      <% unless @room.nil? %>
-          <br />
-          Or readminister <%= link_to @room.display_name, admin_room_path(@room), class: 'round button' %>
-      <% end %>
+    <h3>Get started</h3>
+
+    <div class="panel callout radius">
+      <%= link_to 'Create', new_room_path, class: 'round button' %> a room
     </div>
+
+    <% unless @attendee_history.empty? %>
+        <h3>Recently attended</h3>
+
+        <div class="panel callout radius">
+          <ul class="no-bullet">
+            <% @attendee_history.each do |attendee| %>
+                <li>
+                  <%= link_to attendee.room.display_name, attendee.room %>
+                    as <%= attendee.name %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% unless @admin_history.empty? %>
+        <h3>Recently administered</h3>
+
+        <div class="panel callout radius">
+          <ul class="no-bullet">
+            <% @admin_history.each do |room| %>
+                <li>
+                  <%= link_to room.display_name, admin_room_path(room) %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
   </div>
 </div>

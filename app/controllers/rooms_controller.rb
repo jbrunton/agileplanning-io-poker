@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   include WebsocketHelper
+  include HistoryHelper
 
   before_action :set_room, only: [:show, :admin, :show_scores, :reset, :destroy]
   before_action :set_attendee, only: [:show]
@@ -18,7 +19,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1/admin
   # GET /rooms/1/admin.json
   def admin
-    cookies.permanent['room_id'] = @room.id
+    append_admin_history(@room)
   end
 
   # GET /rooms/new
@@ -80,8 +81,9 @@ class RoomsController < ApplicationController
     end
 
     def set_attendee
-      attendee = Attendee.find_by_id(cookies['attendee_id'])
-      @attendee = attendee if attendee.try(:room) == @room
+      @attendee = attendee_history.
+        select{ |attendee| attendee.room == @room }.
+        first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
