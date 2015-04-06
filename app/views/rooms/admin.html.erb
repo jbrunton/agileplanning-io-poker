@@ -44,15 +44,16 @@
 
     <% else %>
 
-    <div id="scores">
-    </div>
-
     <ul class="button-group">
       <li><%= button_to "Show", show_scores_room_path(@room, format: :json), class: 'button', remote: true %></li>
       <li><%= button_to "Reset", reset_room_path(@room, format: :json), class: 'alert button', remote: true %></li>
     </ul>
 
     <% end %>
+
+    <div id="scores">
+    </div>
+
   </div>
 
   <div class="large-6 columns">
