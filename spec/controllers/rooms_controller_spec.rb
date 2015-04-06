@@ -115,6 +115,11 @@ RSpec.describe RoomsController, type: :controller do
       expect(room.show_scores).to eq(true)
     end
 
+    it "notifies the channel" do
+      expect(controller).to receive(:notify_room_update).with(room)
+      put :show_scores, {:id => room.to_param}, valid_session
+    end
+
     it "redirects to the admin action" do
       put :show_scores, {:id => room.to_param, :room => valid_attributes}, valid_session
       expect(response).to redirect_to(admin_room_path(room))
@@ -128,6 +133,11 @@ RSpec.describe RoomsController, type: :controller do
       put :reset, {:id => room.to_param}, valid_session
       attendee.reload
       expect(attendee.score).to be_nil
+    end
+
+    it "notifies the channel" do
+      expect(controller).to receive(:notify_room_update).with(room)
+      put :reset, {:id => room.to_param}, valid_session
     end
 
     it "resets the room" do

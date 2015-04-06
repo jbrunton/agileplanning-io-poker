@@ -40,6 +40,12 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.before(:each) do
+    # WebsocketHelper is a simple 'adapter' for WebsocketRails, so we simply mock it
+    allow_any_instance_of(WebsocketHelper).to receive(:notify_attendee_update)
+    allow_any_instance_of(WebsocketHelper).to receive(:notify_room_update)
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
