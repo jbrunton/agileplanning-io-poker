@@ -3,5 +3,6 @@ class HomeController < ApplicationController
 
   def index
     @attendee_history = attendee_history
+    @admin_history = admin_history
   end
 end

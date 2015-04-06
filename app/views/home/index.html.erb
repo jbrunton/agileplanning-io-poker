@@ -7,17 +7,32 @@
     </div>
 
     <% unless @attendee_history.empty? %>
-      <h3>Recently attended</h3>
-      <div class="panel callout radius">
-        <ul class="no-bullet">
-          <% @attendee_history.each do |attendee| %>
-            <li>
-              <%= link_to attendee.room.display_name, attendee.room %>
-                as <%= attendee.name %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+        <h3>Recently attended</h3>
+
+        <div class="panel callout radius">
+          <ul class="no-bullet">
+            <% @attendee_history.each do |attendee| %>
+                <li>
+                  <%= link_to attendee.room.display_name, attendee.room %>
+                    as <%= attendee.name %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% unless @admin_history.empty? %>
+        <h3>Recently administered</h3>
+
+        <div class="panel callout radius">
+          <ul class="no-bullet">
+            <% @admin_history.each do |room| %>
+                <li>
+                  <%= link_to room.display_name, admin_room_path(room) %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
     <% end %>
   </div>
 </div>
