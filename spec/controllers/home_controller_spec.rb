@@ -7,16 +7,10 @@ RSpec.describe HomeController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns the attendee if an attendee_id cookie is present" do
-      request.cookies[:attendee_id] = attendee.to_param
+    it "assigns the room_history if a room_history cookie is present" do
+      request.cookies[:room_history] = "attendee:#{attendee.id}"
       get :index, {}, valid_session
-      expect(assigns(:attendee)).to eq(attendee)
-    end
-
-    it "assigns the room if a room_id cookie is present" do
-      request.cookies[:room_id] = room.to_param
-      get :index, {}, valid_session
-      expect(assigns(:room)).to eq(room)
+      expect(assigns(:room_history)).to eq([attendee])
     end
   end
 end
