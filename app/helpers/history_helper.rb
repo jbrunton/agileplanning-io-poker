@@ -28,10 +28,9 @@ private
   def append_history(history_type, record)
     cookie_name = "#{history_type}_history"
 
-    history = (cookies[cookie_name] || '')
-    history.concat(' ') unless history.empty?
-    history.concat("#{history_type}:#{record.id}")
+    history = (cookies[cookie_name] || '').split
+    history << "#{history_type}:#{record.id}"
 
-    cookies.permanent[cookie_name] = history
+    cookies.permanent[cookie_name] = history.uniq.join(' ')
   end
 end

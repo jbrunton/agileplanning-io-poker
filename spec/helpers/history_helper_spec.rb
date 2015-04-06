@@ -15,6 +15,12 @@ RSpec.describe RoomsHelper, type: :helper do
       helper.append_attendee_history(attendee)
       expect(helper.cookies['attendee_history']).to eq("attendee:123 attendee:#{attendee.id}")
     end
+
+    it "appends the history only if the id is unique" do
+      helper.cookies['attendee_history'] = "attendee:#{attendee.id}"
+      helper.append_attendee_history(attendee)
+      expect(helper.cookies['attendee_history']).to eq("attendee:#{attendee.id}")
+    end
   end
 
   describe "#append_admin_history" do
