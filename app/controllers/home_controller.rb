@@ -1,10 +1,7 @@
 class HomeController < ApplicationController
+  include HistoryHelper
+  
   def index
-    @room_history = (cookies[:room_history] || "").
-        split.
-        map{ |token| Attendee.find_by_id(/attendee:(\d*)/.match(token)[1]) }
-
-    #@attendee = Attendee.find_by_id(cookies[:attendee_id])
-    #@room = Room.find_by_id(cookies[:room_id])
+    @room_history = room_history
   end
 end

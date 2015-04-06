@@ -99,12 +99,12 @@ RSpec.describe AttendeesController, type: :controller do
       end
 
       it "updates the history cookie" do
-        request.cookies['room_history'] = 'attendee:123'
+        cookies['room_history'] = 'attendee:123'
 
         post :create, {:room_id => room.to_param, :attendee => valid_attributes}, valid_session
 
         expected_cookie = "attendee:123 attendee:#{assigns(:attendee).id}"
-        expect(response.cookies['room_history']).to eq(expected_cookie)
+        expect(cookies['room_history']).to eq(expected_cookie)
       end
     end
 

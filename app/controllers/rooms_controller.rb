@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   include WebsocketHelper
+  include HistoryHelper
 
   before_action :set_room, only: [:show, :admin, :show_scores, :reset, :destroy]
   before_action :set_attendee, only: [:show]
@@ -80,11 +81,9 @@ class RoomsController < ApplicationController
     end
 
     def set_attendee
-      @attendee = (cookies[:room_history] || "").
-          split.
-          map{ |token| Attendee.find_by_id(/attendee:(\d*)/.match(token)[1]) }.
-          select{ |attendee| attendee.room == @room }.
-          first
+      @attendee = room_history.
+        select{ |attendee| attendee.room == @room }.
+        first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
