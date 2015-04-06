@@ -80,8 +80,11 @@ class RoomsController < ApplicationController
     end
 
     def set_attendee
-      attendee = Attendee.find_by_id(cookies['attendee_id'])
-      @attendee = attendee if attendee.try(:room) == @room
+      @attendee = (cookies[:room_history] || "").
+          split.
+          map{ |token| Attendee.find_by_id(/attendee:(\d*)/.match(token)[1]) }.
+          select{ |attendee| attendee.room == @room }.
+          first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
