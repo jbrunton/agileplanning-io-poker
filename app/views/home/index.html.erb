@@ -6,24 +6,18 @@
       <%= link_to 'Create', new_room_path, class: 'round button' %> a room
     </div>
 
-    <h3>Recent rooms</h3>
-
-    <div class="panel callout radius">
-      <% unless @room_history.nil? %>
+    <% unless @attendee_history.empty? %>
+      <h3>Recently attended</h3>
+      <div class="panel callout radius">
         <ul class="no-bullet">
-        <% @room_history.each do |record| %>
-          <li>
-            <% if record.is_a?(Attendee) %>
-              <%= link_to record.room.display_name, record.room %>
-                as <%= record.name %>
-            <% else %>
-              <%= link_to record.display_name, admin_room_path(record) %>
-                (admin)
-            <% end %>
-          </li>
-        <% end %>
+          <% @attendee_history.each do |attendee| %>
+            <li>
+              <%= link_to attendee.room.display_name, attendee.room %>
+                as <%= attendee.name %>
+            </li>
+          <% end %>
         </ul>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

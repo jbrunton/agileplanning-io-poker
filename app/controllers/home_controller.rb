@@ -2,6 +2,6 @@ class HomeController < ApplicationController
   include HistoryHelper
 
   def index
-    @room_history = room_history
+    @attendee_history = attendee_history
   end
 end

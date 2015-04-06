@@ -2,23 +2,36 @@ module HistoryHelper
   ATTENDEE_TOKEN_REGEX = /attendee:(\d*)/
   ADMIN_TOKEN_REGEX = /admin:(\d*)/
 
-  def append_history(history_type, attendee)
-    room_history = (cookies['room_history'] || '')
-    room_history.concat(' ') unless room_history.empty?
-    room_history.concat("#{history_type}:#{attendee.id}")
-    cookies.permanent['room_history'] = room_history
+  def append_attendee_history(attendee)
+    append_history(:attendee, attendee)
   end
 
-  def room_history
-    tokens = (cookies[:room_history] || '').split
+  def append_admin_history(attendee)
+    append_history(:admin, attendee)
+  end
+
+  def attendee_history
+    tokens = (cookies[:attendee_history] || '').split
     tokens.map do |token|
-      attendee_match = ATTENDEE_TOKEN_REGEX.match(token)
-      admin_match = ADMIN_TOKEN_REGEX.match(token)
-      if attendee_match
-        Attendee.find_by_id(attendee_match[1])
-      elsif admin_match
-        Room.find_by_id(admin_match[1])
-      end
+      Attendee.find_by_id(ATTENDEE_TOKEN_REGEX.match(token)[1])
     end
+  end
+
+  def admin_history
+    tokens = (cookies[:admin_history] || '').split
+    tokens.map do |token|
+      Room.find_by_id(ADMIN_TOKEN_REGEX.match(token)[1])
+    end
+  end
+
+private
+  def append_history(history_type, record)
+    cookie_name = "#{history_type}_history"
+
+    history = (cookies[cookie_name] || '')
+    history.concat(' ') unless history.empty?
+    history.concat("#{history_type}:#{record.id}")
+
+    cookies.permanent[cookie_name] = history
   end
 end

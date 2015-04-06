@@ -34,7 +34,7 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
-        append_history(:attendee, @attendee)
+        append_attendee_history(@attendee)
         notify_attendee_update(@attendee)
         format.html { redirect_to @room, notice: 'Attendee was successfully created.' }
         format.json { render :show, status: :created, location: @attendee }

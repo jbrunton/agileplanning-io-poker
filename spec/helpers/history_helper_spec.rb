@@ -4,34 +4,43 @@ RSpec.describe RoomsHelper, type: :helper do
   let(:attendee) { create(:attendee) }
   let(:room) { create(:room) }
 
-  describe "#append_history" do
-    context "if the room_history cookie is nil" do
-      before(:each) do
-        helper.cookies['room_history'] = nil
-      end
-
-      it "sets the history" do
-        helper.append_history(:attendee, attendee)
-        expect(helper.cookies['room_history']).to eq("attendee:#{attendee.id}")
-      end
+  describe "#append_attendee_history" do
+    it "sets the history if the cookie is nil" do
+      helper.append_attendee_history(attendee)
+      expect(helper.cookies['attendee_history']).to eq("attendee:#{attendee.id}")
     end
 
-    context "if the room_history cookie is set" do
-      before(:each) do
-        helper.cookies['room_history'] = "attendee:123"
-      end
-
-      it "appends the history" do
-        helper.append_history(:admin, room)
-        expect(helper.cookies['room_history']).to eq("attendee:123 admin:#{room.id}")
-      end
+    it "appends the history if the cookie is set" do
+      helper.cookies['attendee_history'] = "attendee:123"
+      helper.append_attendee_history(attendee)
+      expect(helper.cookies['attendee_history']).to eq("attendee:123 attendee:#{attendee.id}")
     end
   end
 
-  describe "#room_history" do
-    it "returns the list of recent rooms and attendees" do
-      helper.cookies['room_history'] = "attendee:#{attendee.id} admin:#{room.id}"
-      expect(helper.room_history).to eq([attendee, room])
+  describe "#append_admin_history" do
+    it "sets the history if the cookie is nil" do
+      helper.append_admin_history(room)
+      expect(helper.cookies['admin_history']).to eq("admin:#{room.id}")
+    end
+
+    it "appends the history if the cookie is set" do
+      helper.cookies['admin_history'] = "admin:123"
+      helper.append_admin_history(room)
+      expect(helper.cookies['admin_history']).to eq("admin:123 admin:#{room.id}")
+    end
+  end
+
+  describe "#attendee_history" do
+    it "returns the list of recent attendees" do
+      helper.cookies['attendee_history'] = "attendee:#{attendee.id}"
+      expect(helper.attendee_history).to eq([attendee])
+    end
+  end
+
+  describe "#admin_history" do
+    it "returns the list of recent rooms" do
+      helper.cookies['admin_history'] = "admin:#{room.id}"
+      expect(helper.admin_history).to eq([room])
     end
   end
 end

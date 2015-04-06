@@ -51,7 +51,7 @@ RSpec.describe RoomsController, type: :controller do
       let(:attendee) { create(:attendee, room: room) }
 
       it "assigns the attendee" do
-        request.cookies['room_history'] = "attendee:#{attendee.id}"
+        request.cookies['attendee_history'] = "attendee:#{attendee.id}"
         get :show, {:id => room.to_param}, valid_session
         expect(assigns(:attendee)).to eq(attendee)
       end
@@ -61,7 +61,7 @@ RSpec.describe RoomsController, type: :controller do
       let(:attendee) { create(:attendee) }
 
       it "does not assign the attendee" do
-        request.cookies['room_history'] = "attendee:#{attendee.id}"
+        request.cookies['attendee_history'] = "attendee:#{attendee.id}"
         get :show, {:id => room.to_param}, valid_session
         expect(assigns(:attendee)).to be_nil
       end
@@ -76,7 +76,7 @@ RSpec.describe RoomsController, type: :controller do
 
     it "drops a room_id cookie" do
       get :admin, {:id => room.to_param}, valid_session
-      expect(response.cookies['room_history']).to eq("admin:#{room.id}")
+      expect(response.cookies['admin_history']).to eq("admin:#{room.id}")
     end
   end
 

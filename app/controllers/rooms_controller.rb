@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1/admin
   # GET /rooms/1/admin.json
   def admin
-    append_history(:admin, @room)
+    append_admin_history(@room)
   end
 
   # GET /rooms/new
@@ -81,8 +81,8 @@ class RoomsController < ApplicationController
     end
 
     def set_attendee
-      @attendee = room_history.
-        select{ |attendee| attendee.is_a?(Attendee) && attendee.room == @room }.
+      @attendee = attendee_history.
+        select{ |attendee| attendee.room == @room }.
         first
     end
 
