@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  include RoomsHelper
+  include WebsocketHelper
 
   before_action :set_room, only: [:show, :admin, :show_scores, :reset, :destroy]
   before_action :set_attendee, only: [:show]
