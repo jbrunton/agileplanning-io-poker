@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1/admin
   # GET /rooms/1/admin.json
   def admin
-    cookies.permanent['room_id'] = @room.id
+    append_history(:admin, @room)
   end
 
   # GET /rooms/new
@@ -82,7 +82,7 @@ class RoomsController < ApplicationController
 
     def set_attendee
       @attendee = room_history.
-        select{ |attendee| attendee.room == @room }.
+        select{ |attendee| attendee.is_a?(Attendee) && attendee.room == @room }.
         first
     end
 

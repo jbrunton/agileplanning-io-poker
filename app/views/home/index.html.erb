@@ -11,10 +11,15 @@
     <div class="panel callout radius">
       <% unless @room_history.nil? %>
         <ul class="no-bullet">
-        <% @room_history.each do |attendee| %>
+        <% @room_history.each do |record| %>
           <li>
-            <%= link_to attendee.room.display_name, attendee.room %>
-              as <%= attendee.name %>
+            <% if record.is_a?(Attendee) %>
+              <%= link_to record.room.display_name, record.room %>
+                as <%= record.name %>
+            <% else %>
+              <%= link_to record.display_name, admin_room_path(record) %>
+                (admin)
+            <% end %>
           </li>
         <% end %>
         </ul>
