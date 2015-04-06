@@ -5,7 +5,7 @@ module HistoryHelper
     room_history = (cookies['room_history'] || '')
     room_history.concat(' ') unless room_history.empty?
     room_history.concat("attendee:#{attendee.id}")
-    cookies['room_history'] = room_history
+    cookies.permanent['room_history'] = room_history
   end
 
   def room_history
