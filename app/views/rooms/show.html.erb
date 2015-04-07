@@ -39,6 +39,7 @@
         <br />
         <br />
         <%= link_to 'Join', room_join_path(@room), class: 'round button' %>
+        <%= link_to 'Administer', admin_room_path(@room), class: 'round button' %>
       </div>
     <% end %>
   </div>
@@ -46,14 +47,19 @@
 
 <% unless @attendee.nil? %>
   <div class="row">
-    <div class="large-12 columns">
-      <ul class="small-block-grid-3 medium-block-grid-6 large-block-grid-12">
+    <div class="large-6 columns">
+      <ul class="small-block-grid-3 medium-block-grid-6 large-block-grid-6">
         <% ["0.5", "1", "2", "3", "5", "8", "13", "20", "40", "100", "break", "?"].each do |score| %>
           <li>
             <a style="width: 100%; padding-left: 0; padding-right: 0;" class="button <%= score == @attendee.score ? 'success' : '' %>" href="#" onclick="setScore('<%= score %>');"><%= score %></a>
           </li>
         <% end %>
       </ul>
+    </div>
+    <div class="large-6 columns">
+      <div class="panel text-center">
+        <%= link_to 'Leave', @attendee, class: 'round button', method: :delete %>
+      </div>
     </div>
   </div>
 <% end %>

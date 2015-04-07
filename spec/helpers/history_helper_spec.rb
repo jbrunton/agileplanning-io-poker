@@ -41,6 +41,11 @@ RSpec.describe RoomsHelper, type: :helper do
       helper.cookies['attendee_history'] = "attendee:#{attendee.id}"
       expect(helper.attendee_history).to eq([attendee])
     end
+
+    it "ignores deleted attendees" do
+      helper.cookies['attendee_history'] = "attendee:123"
+      expect(helper.attendee_history).to eq([])
+    end
   end
 
   describe "#admin_history" do

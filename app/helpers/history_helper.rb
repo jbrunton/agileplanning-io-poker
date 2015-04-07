@@ -14,14 +14,14 @@ module HistoryHelper
     tokens = (cookies[:attendee_history] || '').split
     tokens.map do |token|
       Attendee.find_by_id(ATTENDEE_TOKEN_REGEX.match(token)[1])
-    end
+    end.compact
   end
 
   def admin_history
     tokens = (cookies[:admin_history] || '').split
     tokens.map do |token|
       Room.find_by_id(ADMIN_TOKEN_REGEX.match(token)[1])
-    end
+    end.compact
   end
 
 private
