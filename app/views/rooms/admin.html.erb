@@ -6,6 +6,7 @@
 
     $(function() {
         var client = new ZeroClipboard( document.getElementById("copy-join-link") );
+        renderScores();
     });
 
     function renderScores() {
@@ -21,8 +22,6 @@
             }
         });
     }
-
-    renderScores();
 
     function deleteAttendee(id) {
         $.ajax({
