@@ -1,4 +1,4 @@
-# Responsive Poker
+# agileplanning.io | Poker
 
 [![Build Status](https://travis-ci.org/jbrunton/agileplanning-io-poker.png)](https://travis-ci.org/jbrunton/agileplanning-io-poker)
 [![Code Climate](https://codeclimate.com/github/jbrunton/agileplanning-io-poker/badges/gpa.svg)](https://codeclimate.com/github/jbrunton/agileplanning-io-poker)
@@ -16,7 +16,7 @@ Hence...
 
 ### Design Goals
 
-Responsive Poker aims to be:
+This app aims to be:
 
 1. **Responsive** (obviously).  It should be equally pleasant to use from a desktop (e.g. when working remotely), or from a phone (e.g. when huddling as a team).
 2. **Highly available**.  Currently it's deployed to [poker.agileplanning.io](http://poker.agileplanning.io) using Heroku, and I intend to ensure it remains functional at all times.  You can see the recent uptime history [here](http://status.agileplanning.io).
