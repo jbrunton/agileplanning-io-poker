@@ -13,4 +13,11 @@ RSpec.describe HomeController, type: :controller do
       expect(assigns(:attendee_history)).to eq([attendee])
     end
   end
+
+  describe "POST #join" do
+    it "redirects to the join url for the room" do
+      get :join, {:room_id => room.to_param}, valid_session
+      expect(response).to redirect_to(room)
+    end
+  end
 end
