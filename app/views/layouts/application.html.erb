@@ -26,7 +26,24 @@
 
     <script type="application/javascript">
         var dispatcher = new WebSocketRails('<%= request.host_with_port %>/websocket');
+
+        function connectionLost() {
+            $('#connection-lost').show();
+        }
+
+        dispatcher.bind('connection_closed', connectionLost);
+        dispatcher.bind('connection_error', connectionLost);
     </script>
+
+  <div id="connection-lost" class="row">
+    <br/>
+    <div class="12-large columns">
+      <div data-alert class="alert-box info radius">
+        Connection lost - <a href="<%= request.original_url %>">Refresh</a>
+        <a href="#" class="close">&times;</a>
+      </div>
+    </div>
+  </div>
 
     <%= yield %>
 
