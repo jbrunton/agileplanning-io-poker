@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  post 'join' => 'home#join'
 
   resources :attendees, except: [:index, :new, :create] do
     member do
