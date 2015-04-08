@@ -3,4 +3,6 @@ class Attendee < ActiveRecord::Base
 
   validates :name, presence: true
   validates :room, presence: true
+
+  default_scope { order(created_at: :asc) }
 end
