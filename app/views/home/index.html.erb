@@ -7,9 +7,11 @@
     </div>
   </div>
   <div class="large-6 columns">
-    <% unless @attendee_history.empty? %>
+    <% unless @attendee_history.nil? && @admin_history.nil? %>
         <h3>Recent history</h3>
+    <% end %>
 
+    <% unless @attendee_history.empty? %>
         <div class="panel callout radius">
           <h5>Attended</h5>
           <ul class="no-bullet">
