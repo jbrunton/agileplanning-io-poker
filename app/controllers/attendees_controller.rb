@@ -2,7 +2,7 @@ class AttendeesController < ApplicationController
   include WebsocketHelper
   include HistoryHelper
 
-  before_action :set_attendee, only: [:show, :edit, :update, :destroy]
+  before_action :set_attendee, only: [:show, :edit, :update, :destroy, :rejoin]
   before_action :set_room, only: [:create, :new, :index]
 
   # GET /attendees
@@ -42,6 +42,16 @@ class AttendeesController < ApplicationController
         format.html { render :new }
         format.json { render json: @attendee.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # POST /attendees/1/rejoin
+  # POST /attendees/1/rejoin.json
+  def rejoin
+    append_attendee_history(@attendee)
+    respond_to do |format|
+      format.html { redirect_to @room, notice: 'Attendee was successfully created.' }
+      format.json { render :show, status: :created, location: @attendee }
     end
   end
 

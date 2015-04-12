@@ -121,6 +121,22 @@ RSpec.describe AttendeesController, type: :controller do
     end
   end
 
+  describe "POST #rejoin" do
+    it "redirects to the room" do
+      post :rejoin, {:id => attendee.to_param}, valid_session
+      expect(response).to redirect_to(room)
+    end
+
+    it "updates the history cookie" do
+      cookies['attendee_history'] = 'attendee:123'
+
+      post :rejoin, {:id => attendee.to_param}, valid_session
+
+      expected_cookie = "attendee:123 attendee:#{attendee.id}"
+      expect(cookies['attendee_history']).to eq(expected_cookie)
+    end
+  end
+
   describe "POST #update" do
     context "with valid params" do
       let(:new_attributes) {

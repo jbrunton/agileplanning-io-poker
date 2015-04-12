@@ -3,5 +3,14 @@
     <h3>Join <%= @room.display_name =%></h3>
 
     <%= render 'form' %>
+
+    <% unless @room.attendees.empty? %>
+      <h5>Or rejoin as...</h5>
+      <ul class="no-bullet">
+      <% @room.attendees.each do |attendee| %>
+        <li><%= link_to attendee.name, rejoin_attendee_path(attendee) %></li>
+      <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>

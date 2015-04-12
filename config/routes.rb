@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :attendees, except: [:index, :new, :create] do
     member do
       post 'set_score'
+      get 'rejoin'
     end
   end
 

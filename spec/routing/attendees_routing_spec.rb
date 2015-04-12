@@ -23,6 +23,10 @@ RSpec.describe AttendeesController, type: :routing do
       expect(:post => "/rooms/2/attendees").to route_to("attendees#create", :room_id => "2")
     end
 
+    it "routes to #rejoin" do
+      expect(:get => "/attendees/1/rejoin").to route_to("attendees#rejoin", :id => "1")
+    end
+
     it "routes to #update" do
       expect(:put => "/attendees/1").to route_to("attendees#update", :id => "1")
     end
